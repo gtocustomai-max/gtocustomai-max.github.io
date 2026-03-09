@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Automation Fundamentals — Course | GTO Custom Automation</title>
+    <meta name="description" content="30 lessons. 6 modules. Build zero-cost AI systems that work while you sleep.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: #00D4FF;
+            --accent-dark: #00A3CC;
+            --dark: #0A0A0B;
+            --dark-elevated: #141416;
+            --dark-card: #1A1A1E;
+            --light: #FAFAFA;
+            --gray: #71717A;
+            --gray-light: #A1A1AA;
+            --border: rgba(255,255,255,0.08);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --purple: #8B5CF6;
+            --gto-blue: #0A2F5C;
+            --gto-teal: #00A5B5;
+            --gto-gold: #C9A227;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Video Section */
+        .video-hero {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+
+        .video-hero h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .video-hero h1 .gradient {
+            background: linear-gradient(135deg, var(--gto-teal) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .video-hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-light);
+            margin-bottom: 40px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            aspect-ratio: 16/9;
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-placeholder {
+            text-align: center;
+            color: var(--gray);
+        }
+
+        .video-placeholder svg {
+            width: 80px;
+            height: 80px;
+            color: var(--gto-teal);
+            margin-bottom: 16px;
+        }
+
+        .video-placeholder p {
+            font-size: 1.1rem;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 80px 0;
+            background: var(--dark-elevated);
+        }
+
+        .problem-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .problem-item {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .problem-item .emoji {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .problem-item h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .problem-item p {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+
+        .time-lost {
+            text-align: center;
+            margin-top: 40px;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+        }
+
+        .time-lost h3 {
+            font-size: 1.5rem;
+            color: var(--warning);
+            margin-bottom: 8px;
+        }
+
+        .time-lost p {
+            color: var(--gray-light);
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 80px 0;
+        }
+
+        .solution-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .solution-section .tagline {
+            text-align: center;
+            color: var(--gray-light);
+            font-size: 1.1rem;
+            margin-bottom: 48px;
+        }
+
+        .benefit-list {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .benefit-item:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--success);
+            flex-shrink: 0;
+        }
+
+        .benefit-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .benefit-content p {
+            color: var(--gray-light);
+            font-size: 0.95rem;
+        }
+
+        .zero-cost-banner {
+            text-align: center;
+            margin-top: 40px;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(0, 165, 181, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 165, 181, 0.3);
+            border-radius: 12px;
+        }
+
+        .zero-cost-banner h3 {
+            font-size: 1.25rem;
+            color: var(--gto-teal);
+        }
+
+        /* Modules Section */
+        .modules-section {
+            padding: 80px 0;
+            background: var(--dark-elevated);
+        }
+
+        .modules-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .module-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .module-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            border-color: rgba(0, 165, 181, 0.3);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .module-number {
+            background: linear-gradient(135deg, var(--gto-teal) 0%, var(--accent) 100%);
+            color: var(--dark);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .module-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .module-lessons {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .module-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .topic-tag {
+            background: var(--dark-elevated);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--gray-light);
+        }
+
+        /* Includes Section */
+        .includes-section {
+            padding: 80px 0;
+        }
+
+        .includes-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .includes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .include-card {
+            text-align: center;
+            padding: 32px;
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .include-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .include-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .include-card p {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 80px 0;
+            background: var(--dark-elevated);
+        }
+
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--dark-card);
+            border: 2px solid var(--gto-teal);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+        }
+
+        .pricing-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .tagline {
+            color: var(--gray-light);
+            margin-bottom: 24px;
+        }
+
+        .price-display {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .price-display span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .price-note {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 18px 36px;
+            background: linear-gradient(135deg, var(--gto-teal) 0%, var(--accent) 100%);
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 165, 181, 0.4);
+        }
+
+        .guarantee {
+            margin-top: 24px;
+            padding: 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--gray-light);
+        }
+
+        .guarantee strong {
+            color: var(--success);
+        }
+
+        /* Footer */
+        .course-footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .course-footer p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .course-footer a {
+            color: var(--gto-teal);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .video-hero h1 { font-size: 2rem; }
+            .video-hero .subtitle { font-size: 1rem; }
+            .pricing-card { padding: 32px 24px; }
+            .price-display { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Hero -->
+    <section class="video-hero">
+        <div class="container">
+            <h1>🎓 AI Automation <span class="gradient">Fundamentals</span></h1>
+            <p class="subtitle">Build Zero-Cost AI Systems That Work While You Sleep</p>
+            
+            <div class="video-container">
+                <div class="video-placeholder" id="video-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                    </svg>
+                    <p>2-Minute Course Overview</p>
+                    <p style="font-size: 0.85rem; margin-top: 8px; color: var(--gto-teal);">Video coming soon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <h2>You're Drowning in Tasks That Shouldn't Exist</h2>
+            
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <div class="emoji">📧</div>
+                    <h3>Email Overload</h3>
+                    <p>2+ hours daily on messages that don't matter</p>
+                </div>
+                <div class="problem-item">
+                    <div class="emoji">📅</div>
+                    <h3>Scheduling Chaos</h3>
+                    <p>Back-and-forth emails just to find a time</p>
+                </div>
+                <div class="problem-item">
+                    <div class="emoji">📝</div>
+                    <h3>Repetitive Writing</h3>
+                    <p>Same emails, same responses, every day</p>
+                </div>
+                <div class="problem-item">
+                    <div class="emoji">🔍</div>
+                    <h3>Manual Research</h3>
+                    <p>Hours finding information AI could surface</p>
+                </div>
+            </div>
+            
+            <div class="time-lost">
+                <h3>That's 40% of Your Day. Gone. Forever.</h3>
+                <p>What could you do with that time? Grow your business. Spend time with family. Learn new skills.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section">
+        <div class="container">
+            <h2>AI Automation Changes Everything</h2>
+            <p class="tagline">In this course, you'll learn to build systems that run without you.</p>
+            
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <svg class="benefit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <div class="benefit-content">
+                        <h3>Email Management That Works</h3>
+                        <p>Important messages get priority. Junk disappears. You respond to what matters.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <svg class="benefit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <div class="benefit-content">
+                        <h3>Calendar Intelligence</h3>
+                        <p>Scheduling conflicts become impossible. Your calendar manages itself.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <svg class="benefit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <div class="benefit-content">
+                        <h3>Content Creation Pipeline</h3>
+                        <p>Social posts, emails, documents generated automatically. You approve, not create.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <svg class="benefit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <div class="benefit-content">
+                        <h3>Research While You Sleep</h3>
+                        <p>Information compiled and summarized. Ready when you wake up.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <svg class="benefit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <div class="benefit-content">
+                        <h3>Client Communication on Autopilot</h3>
+                        <p>Routine messages handled without you. Personal touch preserved.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="zero-cost-banner">
+                <h3>All for $0 in software costs.</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section class="modules-section">
+        <div class="container">
+            <h2>What You'll Learn</h2>
+            
+            <div class="module-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-number">Module 1</span>
+                    </div>
+                    <h3 class="module-title">Foundations</h3>
+                    <p class="module-lessons">5 Lessons</p>
+                    <div class="module-topics">
+                        <span class="topic-tag">What AI Automation Is</span>
+                        <span class="topic-tag">Zero-Cost Philosophy</span>
+                        <span class="topic-tag">First Automation</span>
+                    </div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-number">Module 2</span>
+                    </div>
+                    <h3 class="module-title">Setup</h3>
+                    <p class="module-lessons">5 Lessons</p>
+                    <div class="module-topics">
+                        <span class="topic-tag">AI Platform</span>
+                        <span class="topic-tag">Configuration</span>
+                        <span class="topic-tag">Memory Systems</span>
+                    </div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-number">Module 3</span>
+                    </div>
+                    <h3 class="module-title">Core Workflows</h3>
+                    <p class="module-lessons">5 Lessons</p>
+                    <div class="module-topics">
+                        <span class="topic-tag">Email Management</span>
+                        <span class="topic-tag">Calendar Intelligence</span>
+                        <span class="topic-tag">Task Automation</span>
+                    </div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-number">Module 4</span>
+                    </div>
+                    <h3 class="module-title">Advanced Workflows</h3>
+                    <p class="module-lessons">5 Lessons</p>
+                    <div class="module-topics">
+                        <span class="topic-tag">Content Pipelines</span>
+                        <span class="topic-tag">Client Communication</span>
+                        <span class="topic-tag">Decision Trees</span>
+                    </div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-number">Module 5</span>
+                    </div>
+                    <h3 class="module-title">Multi-Agent Systems</h3>
+                    <p class="module-lessons">5 Lessons</p>
+                    <div class="module-topics">
+                        <span class="topic-tag">Specialized Agents</span>
+                        <span class="topic-tag">Coordination</span>
+                        <span class="topic-tag">Real Architectures</span>
+                    </div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-number">Module 6</span>
+                    </div>
+                    <h3 class="module-title">Business Applications</h3>
+                    <p class="module-lessons">5 Lessons</p>
+                    <div class="module-topics">
+                        <span class="topic-tag">Monetizing Skills</span>
+                        <span class="topic-tag">Client Delivery</span>
+                        <span class="topic-tag">Scaling</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Includes Section -->
+    <section class="includes-section">
+        <div class="container">
+            <h2>Course Includes</h2>
+            
+            <div class="includes-grid">
+                <div class="include-card">
+                    <div class="include-icon">📚</div>
+                    <h3>30 Video Lessons</h3>
+                    <p>8-15 minutes each. Watch at your own pace.</p>
+                </div>
+                <div class="include-card">
+                    <div class="include-icon">📝</div>
+                    <h3>30 Worksheets</h3>
+                    <p>Apply what you learn immediately.</p>
+                </div>
+                <div class="include-card">
+                    <div class="include-icon">🎯</div>
+                    <h3>6 Quizzes</h3>
+                    <p>Test understanding. Reinforce concepts.</p>
+                </div>
+                <div class="include-card">
+                    <div class="include-icon">📦</div>
+                    <h3>Template Library</h3>
+                    <p>Email, calendar, workflow templates.</p>
+                </div>
+                <div class="include-card">
+                    <div class="include-icon">💬</div>
+                    <h3>Community Access</h3>
+                    <p>Ask questions. Share wins.</p>
+                </div>
+                <div class="include-card">
+                    <div class="include-icon">🔄</div>
+                    <h3>Lifetime Updates</h3>
+                    <p>AI evolves. You stay current.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-card">
+                <h2>AI Automation Fundamentals</h2>
+                <p class="tagline">One-time payment. Lifetime access.</p>
+                
+                <div class="price-display">$99</div>
+                <p class="price-note">30 lessons • 6 modules • Worksheets • Templates • Updates</p>
+                
+                <a href="#" class="cta-button" id="enroll-btn" onclick="handleEnroll(event)">
+                    Enroll Now — $99
+                </a>
+                
+                <div class="guarantee">
+                    <strong>30-Day Money-Back Guarantee</strong><br>
+                    Not satisfied? Full refund. No questions asked.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="course-footer">
+        <div class="container">
+            <p><strong>GTO Custom Automation Innovations</strong></p>
+            <p>Automation-First Solutions for Modern Business</p>
+            <p style="margin-top: 16px;">🧠 Family Over Everything</p>
+            <p style="margin-top: 24px;"><a href="https://gtocustomai-max.github.io/">← Back to Main Site</a></p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK (for checking if logged in) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="../firebase-config.js"></script>
+    
+    <script>
+        // Handle enrollment button click
+        function handleEnroll(event) {
+            event.preventDefault();
+            
+            // Check if user is logged in
+            firebaseAuth.onAuthStateChanged((user) => {
+                if (user) {
+                    // User is logged in - redirect to Stripe
+                    window.location.href = 'https://buy.stripe.com/cNi28sfer2GDgvg4OO1ZS07';
+                } else {
+                    // User not logged in - redirect to registration
+                    // Store that they came from the enroll button
+                    sessionStorage.setItem('afterRegister', '../register.html');
+                    window.location.href = '../register.html';
+                }
+            });
+        }
+
+        // Initialize Firebase auth listener
+        firebaseAuth.onAuthStateChanged((user) => {
+            const enrollBtn = document.getElementById('enroll-btn');
+            if (user) {
+                enrollBtn.textContent = 'Purchase & Enroll — $99';
+            }
+        });
+    </script>
+</body>
+</html>
