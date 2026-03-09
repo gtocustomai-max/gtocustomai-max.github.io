@@ -1,0 +1,12 @@
+# Robots.txt for GTO Custom Automation Innovations
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://gtocustomai-max.github.io/sitemap.xml
+
+# Disallow admin/private pages
+Disallow: /dashboard.html
+Disallow: /module.html
+Disallow: /payment-success.html
