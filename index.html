@@ -452,14 +452,15 @@
 
         .book-card {
             display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 32px;
-            padding: 40px;
+            grid-template-columns: 180px 1fr;
+            gap: 28px;
+            padding: 28px;
+            align-items: start;
         }
 
         .book-cover {
-            width: 200px;
-            height: 300px;
+            width: 180px;
+            height: 270px;
             background: linear-gradient(135deg, var(--gto-blue) 0%, var(--dark-elevated) 100%);
             border-radius: 8px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
@@ -469,13 +470,16 @@
             color: var(--gto-teal);
             font-size: 0.8rem;
             text-align: center;
-            padding: 20px;
             overflow: hidden;
             border: 1px solid rgba(0, 165, 181, 0.3);
+            flex-shrink: 0;
         }
 
-        .book-cover img { width: 100%; height: 100%; object-fit: cover; }
-        .book-info { display: flex; flex-direction: column; }
+        .book-cover img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+        .book-info { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+        .book-info h3 { font-size: 1.2rem; }
+        .book-info .tagline { font-size: 0.9rem; }
+        .book-info .product-features { font-size: 0.85rem; }
 
         .services-grid {
             display: grid;
@@ -619,7 +623,7 @@
         @media (max-width: 900px) {
             .about-grid { grid-template-columns: 1fr; }
             .book-card { grid-template-columns: 1fr; text-align: center; }
-            .book-cover { margin: 0 auto; }
+            .book-cover { width: 160px; height: 240px; margin: 0 auto; }
         }
 
         @media (max-width: 768px) {
@@ -784,15 +788,15 @@
         <section id="prompts" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Prompt Packs</h2>
-                    <p>100+ ready-to-use prompts. Copy, paste, get results.</p>
+                    <h2>Prompts & Templates</h2>
+                    <p>Ready-to-use resources. Copy, paste, deploy.</p>
                 </div>
 
                 <div class="products-grid">
                     <div class="product-card">
                         <span class="product-type">20+ Prompts</span>
                         <h3>Industry Prompt Packs</h3>
-                        <p class="tagline">Choose your industry. Get prompts designed for your specific workflows.</p>
+                        <p class="tagline">Prompts for your industry. E-commerce, SaaS, consulting, real estate, fitness.</p>
                         <div class="price">$25 <small>each</small></div>
                         <div class="prompts-grid">
                             <div class="prompt-pack">
@@ -816,13 +820,13 @@
                                 <p>Trainers</p>
                             </div>
                         </div>
-                        <a href="https://buy.stripe.com/4gM3cw8Q36WTfrcgxw1ZS0c" class="btn btn-primary">Get Individual Pack — $25</a>
+                        <a href="https://buy.stripe.com/4gM3cw8Q36WTfrcgxw1ZS0c" class="btn btn-primary">Get Pack — $25</a>
                     </div>
 
                     <div class="product-card">
                         <span class="product-type">100+ Prompts</span>
                         <h3>Prompt Pack Bundle</h3>
-                        <p class="tagline">All 5 industry packs. Maximum value. Ready to deploy.</p>
+                        <p class="tagline">All 5 industry packs in one purchase.</p>
                         <div class="price">$99 <span>$125</span></div>
                         <ul class="product-features">
                             <li>
@@ -831,38 +835,20 @@
                             </li>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                SaaS & Startup prompts (20+)
+                                SaaS, Consulting, Real Estate, Fitness
                             </li>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                Consultant prompts (20+)
-                            </li>
-                            <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                Real Estate prompts (20+)
-                            </li>
-                            <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                Fitness Trainer prompts (20+)
+                                Instant download
                             </li>
                         </ul>
-                        <a href="https://buy.stripe.com/4gM3cw8Q36WTfrcgxw1ZS0c" class="btn btn-primary">Get All Prompts — $99</a>
+                        <a href="https://buy.stripe.com/4gM3cw8Q36WTfrcgxw1ZS0c" class="btn btn-primary">Get All — $99</a>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="services" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Templates</h2>
-                    <p>Ready-to-use templates. Skip the setup.</p>
-                </div>
-                <div class="products-grid" style="margin-bottom: 60px;">
                     <div class="product-card">
                         <span class="product-type">Templates</span>
                         <h3>Automation Template Pack</h3>
-                        <p class="tagline">3 professional templates to jumpstart your AI automation journey.</p>
+                        <p class="tagline">Skip the setup. Plug-and-play templates.</p>
                         <div class="price">$39</div>
                         <ul class="product-features">
                             <li>
@@ -881,7 +867,11 @@
                         <a href="https://buy.stripe.com/aFa6oIgivdlhen8gxw1ZS0d" class="btn btn-primary">Get Templates — $39</a>
                     </div>
                 </div>
+            </div>
+        </section>
 
+        <section id="services" class="section">
+            <div class="container">
                 <div class="section-header">
                     <h2>Done-For-You Services</h2>
                     <p>Don't want to DIY? I'll build it for you.</p>
