@@ -581,21 +581,30 @@
         function renderDownloads(moduleId, lessonIndex) {
             const container = document.getElementById('downloads-grid');
             const lesson = currentModule.lessons[lessonIndex];
+            const moduleNum = parseInt(moduleId.replace('module-', ''));
             
             let html = '';
             
-            // Worksheet download
-            if (lesson.worksheet) {
-                html += `
-                    <a href="worksheets/${moduleId}-${lesson.id}-worksheet.pdf" class="resource-card" download>
-                        <div class="resource-icon">📝</div>
-                        <div class="resource-title">Worksheet</div>
-                        <div class="resource-desc">Download PDF</div>
-                    </a>
-                `;
-            }
+            // Module slide deck (one per module, not per lesson)
+            html += `
+                <a href="slides/module-${moduleNum}-slides.pdf" class="resource-card" target="_blank">
+                    <div class="resource-icon">📊</div>
+                    <div class="resource-title">Module ${moduleNum} Slides</div>
+                    <div class="resource-desc">Complete slide deck</div>
+                </a>
+            `;
             
-            // Quiz download
+            // Worksheet download (if exists for this lesson)
+            const worksheetPath = `worksheets/${moduleId}-${lesson.id}-worksheet.pdf`;
+            html += `
+                <a href="${worksheetPath}" class="resource-card" download>
+                    <div class="resource-icon">📝</div>
+                    <div class="resource-title">Worksheet</div>
+                    <div class="resource-desc">Download PDF</div>
+                </a>
+            `;
+            
+            // Quiz PDF download
             html += `
                 <a href="quizzes/${moduleId}-${lesson.id}-quiz.pdf" class="resource-card" download>
                     <div class="resource-icon">✅</div>
