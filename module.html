@@ -321,7 +321,10 @@
                 <div class="content-section">
                     <h3>Lesson Content</h3>
                     <div class="content-body" id="lesson-text">
-                        <p>Loading lesson content...</p>
+                        <div class="loading" style="min-height: 200px;">
+                            <div class="spinner"></div>
+                            <p style="margin-top: 16px; color: var(--gray-light);">Loading lesson content...</p>
+                        </div>
                     </div>
                 </div>
 
@@ -594,6 +597,48 @@
             
             // Quiz download
             html += `
+                <a href="quizzes/${moduleId}-${lesson.id}-quiz.pdf" class="resource-card" download>
+                    <div class="resource-icon">✅</div>
+                    <div class="resource-title">Quiz PDF</div>
+                    <div class="resource-desc">Download for reference</div>
+                </a>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function renderQuizContainer(moduleId, lessonId) {
+            const container = document.getElementById('quiz-container');
+            quizSystem.renderQuiz(container, moduleId, lessonId);
+        }
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prev-lesson');
+            const nextBtn = document.getElementById('next-lesson');
+
+            // Previous button
+            if (currentLessonIndex > 0) {
+                prevBtn.style.display = 'flex';
+                prevBtn.onclick = () => selectLesson(currentLessonIndex - 1);
+            } else {
+                prevBtn.style.display = 'none';
+            }
+
+            // Next button
+            if (currentLessonIndex < currentModule.lessons.length - 1) {
+                nextBtn.textContent = 'Next Lesson';
+                nextBtn.onclick = () => selectLesson(currentLessonIndex + 1);
+            } else {
+                nextBtn.textContent = 'Complete Module';
+                nextBtn.href = 'dashboard.html';
+            }
+        }
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', () => authSystem.logout());
+    </script>
+</body>
+</html>ml += `
                 <a href="quizzes/${moduleId}-${lesson.id}-quiz.pdf" class="resource-card" download>
                     <div class="resource-icon">✅</div>
                     <div class="resource-title">Quiz PDF</div>
