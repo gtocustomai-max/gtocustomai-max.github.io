@@ -3,78 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Primary Meta Tags -->
-    <title>GTO Custom Automation Innovations — AI Automation Training & Services</title>
-    <meta name="title" content="GTO Custom Automation Innovations — AI Automation Training & Services">
-    <meta name="description" content="Learn to build zero-cost AI systems that automate your work. Online course, prompt packs, templates, and done-for-you automation services. Start saving 10+ hours per week.">
-    <meta name="keywords" content="AI automation, automation training, AI course, automation services, prompt engineering, AI workflows, business automation, zero-cost automation, AI systems, productivity automation">
-    <meta name="author" content="GTO Custom Automation Innovations">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://gtocustomai-max.github.io/">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gtocustomai-max.github.io/">
-    <meta property="og:title" content="GTO Custom Automation Innovations — AI Systems That Work While You Sleep">
-    <meta property="og:description" content="Learn to build zero-cost AI systems that automate your work. Online course, prompt packs, templates, and done-for-you services.">
-    <meta property="og:image" content="https://gtocustomai-max.github.io/logo.png">
-    <meta property="og:site_name" content="GTO Custom Automation Innovations">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://gtocustomai-max.github.io/">
-    <meta property="twitter:title" content="GTO Custom Automation Innovations — AI Systems That Work While You Sleep">
-    <meta property="twitter:description" content="Learn to build zero-cost AI systems that automate your work. Online course, prompt packs, templates, and done-for-you services.">
-    <meta property="twitter:image" content="https://gtocustomai-max.github.io/logo.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logo-icon.png">
-    <link rel="apple-touch-icon" href="logo-icon.png">
-    
-    <!-- Fonts -->
+    <title>GTO Custom Automation Innovations — AI Systems That Work While You Sleep</title>
+    <meta name="description" content="Zero-cost AI systems that work while you sleep. Books, courses, and done-for-you automation services.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "GTO Custom Automation Innovations",
-        "url": "https://gtocustomai-max.github.io/",
-        "logo": "https://gtocustomai-max.github.io/logo.png",
-        "description": "AI automation training and services. Learn to build zero-cost AI systems that work while you sleep.",
-        "sameAs": [
-            "https://twitter.com/gtocustomai",
-            "https://linkedin.com/company/gtocustomai"
-        ],
-        "offers": [
-            {
-                "@type": "Product",
-                "name": "AI Automation Fundamentals Course",
-                "price": "99",
-                "priceCurrency": "USD",
-                "description": "30 lessons across 6 modules. Worksheets, quizzes, and implementation templates."
-            },
-            {
-                "@type": "Product",
-                "name": "Prompt Pack Bundle",
-                "price": "99",
-                "priceCurrency": "USD",
-                "description": "100+ AI prompts for SaaS, E-commerce, Real Estate, Fitness, and Consulting."
-            },
-            {
-                "@type": "Product",
-                "name": "Complete Bundle",
-                "price": "199",
-                "priceCurrency": "USD",
-                "description": "Everything: Course + All Prompts + Templates + eBook."
-            }
-        ]
-    }
-    </script>
     <style>
         * {
             margin: 0;
@@ -452,15 +385,14 @@
 
         .book-card {
             display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: 28px;
-            padding: 28px;
-            align-items: start;
+            grid-template-columns: 200px 1fr;
+            gap: 32px;
+            padding: 40px;
         }
 
         .book-cover {
-            width: 180px;
-            height: 270px;
+            width: 200px;
+            height: 300px;
             background: linear-gradient(135deg, var(--gto-blue) 0%, var(--dark-elevated) 100%);
             border-radius: 8px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
@@ -470,16 +402,13 @@
             color: var(--gto-teal);
             font-size: 0.8rem;
             text-align: center;
+            padding: 20px;
             overflow: hidden;
             border: 1px solid rgba(0, 165, 181, 0.3);
-            flex-shrink: 0;
         }
 
-        .book-cover img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-        .book-info { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
-        .book-info h3 { font-size: 1.2rem; }
-        .book-info .tagline { font-size: 0.9rem; }
-        .book-info .product-features { font-size: 0.85rem; }
+        .book-cover img { width: 100%; height: 100%; object-fit: cover; }
+        .book-info { display: flex; flex-direction: column; }
 
         .services-grid {
             display: grid;
@@ -623,7 +552,9 @@
         @media (max-width: 900px) {
             .about-grid { grid-template-columns: 1fr; }
             .book-card { grid-template-columns: 1fr; text-align: center; }
-            .book-cover { width: 160px; height: 240px; margin: 0 auto; }
+            .book-cover { margin: 0 auto; width: 300px; height: 525px; }
+            .book-info { align-items: center; }
+            .book-info .btn { margin-left: 0; }
         }
 
         @media (max-width: 768px) {
@@ -643,7 +574,7 @@
             <div class="nav-content">
                 <a href="#" class="logo">
                     <div class="logo-icon">GTO</div>
-                    <div class="logo-text">GTO <span>Custom Automation Innovations</span></div>
+                    <div class="logo-text">GTO <span>Automation</span></div>
                 </a>
                 <ul class="nav-links">
                     <li><a href="#products">Products</a></li>
@@ -685,6 +616,10 @@
                     </div>
                     <div class="trust-item">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>30-Day Guarantee</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         <span>Instant Delivery</span>
                     </div>
                 </div>
@@ -701,13 +636,16 @@
                 <div class="products-grid">
                     <div class="product-card book-card">
                         <div class="book-cover" id="book-cover-display">
-                            <img src="book-cover.png" alt="The AI Automation Blueprint Book Cover" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                            <div>
+                                <strong>THE AI AUTOMATION BLUEPRINT</strong><br><br>
+                                Cover Art<br>Coming Soon
+                            </div>
                         </div>
                         <div class="book-info">
                             <span class="product-type">Ebook</span>
                             <h3>The AI Automation Blueprint</h3>
                             <p class="tagline">The complete guide to building zero-cost AI systems. 11 chapters of practical, step-by-step instruction.</p>
-                            <div class="price">$10.99</div>
+                            <div class="price">$14.99</div>
                             <ul class="product-features">
                                 <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -722,7 +660,7 @@
                                     PDF + EPUB formats
                                 </li>
                             </ul>
-                            <a href="https://buy.stripe.com/cNicN62rFepla6Sdlk1ZS0e" class="btn btn-primary">Get the Book — $10.99</a>
+                            <a href="https://gtoliverjr.gumroad.com/l/ptijqz?wanted=true" class="btn btn-primary">Get the Book</a>
                         </div>
                     </div>
 
@@ -749,33 +687,33 @@
                                 Lifetime access + updates
                             </li>
                         </ul>
-                        <a href="https://buy.stripe.com/cNi28sfer2GDgvg4OO1ZS07" class="btn btn-primary">Enroll Now</a>
+                        <a href="https://gtoliverjr.gumroad.com/l/ouujj?wanted=true" class="btn btn-primary">Enroll Now</a>
                     </div>
 
                     <div class="product-card featured">
                         <span class="product-badge">Best Value</span>
                         <h3>Complete AI Automation Bundle</h3>
-                        <p class="tagline">Everything you need in one purchase. Book, course, all prompt packs, and templates.</p>
-                        <div class="price">$199 <span>$248</span></div>
+                        <p class="tagline">Everything you need in one purchase. Book, course, all prompt packs.</p>
+                        <div class="price">$199 <span>$209</span></div>
                         <ul class="product-features">
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                AI Automation Blueprint ($11 value)
+                                AI Automation Blueprint (ebook)
                             </li>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                AI Automation Fundamentals ($99 value)
+                                AI Automation Fundamentals (course)
                             </li>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                Prompt Pack Bundle ($99 value)
+                                Prompt Pack Bundle (100+ prompts)
                             </li>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                Template Pack ($39 value)
+                                Implementation templates included
                             </li>
                         </ul>
-                        <a href="https://buy.stripe.com/5kQeVed6j951baWa981ZS0b" class="btn btn-primary">Get Everything — $199</a>
+                        <a href="https://gtoliverjr.gumroad.com/l/complete-ai-automation-bundle" class="btn btn-primary">Get Everything</a>
                     </div>
                 </div>
             </div>
@@ -784,16 +722,16 @@
         <section id="prompts" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Prompts & Templates</h2>
-                    <p>Ready-to-use resources. Copy, paste, deploy.</p>
+                    <h2>Prompt Packs</h2>
+                    <p>100+ ready-to-use prompts. Copy, paste, get results.</p>
                 </div>
 
                 <div class="products-grid">
                     <div class="product-card">
                         <span class="product-type">20+ Prompts</span>
                         <h3>Industry Prompt Packs</h3>
-                        <p class="tagline">Prompts for your industry. E-commerce, SaaS, consulting, real estate, fitness.</p>
-                        <div class="price">$25 <small>each</small></div>
+                        <p class="tagline">Choose your industry. Get prompts designed for your specific workflows.</p>
+                        <div class="price">$27 <small>each</small></div>
                         <div class="prompts-grid">
                             <div class="prompt-pack">
                                 <h4>E-Commerce</h4>
@@ -816,14 +754,14 @@
                                 <p>Trainers</p>
                             </div>
                         </div>
-                        <a href="https://buy.stripe.com/4gM3cw8Q36WTfrcgxw1ZS0c" class="btn btn-primary">Get Pack — $25</a>
+                        <a href="https://gtoliverjr.gumroad.com/l/prompt-packs" class="btn btn-secondary">Browse Packs</a>
                     </div>
 
                     <div class="product-card">
                         <span class="product-type">100+ Prompts</span>
                         <h3>Prompt Pack Bundle</h3>
-                        <p class="tagline">All 5 industry packs in one purchase.</p>
-                        <div class="price">$99 <span>$125</span></div>
+                        <p class="tagline">All 5 industry packs. Maximum value. Ready to deploy.</p>
+                        <div class="price">$97 <span>$135</span></div>
                         <ul class="product-features">
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -831,36 +769,22 @@
                             </li>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                SaaS, Consulting, Real Estate, Fitness
+                                SaaS & Startup prompts (20+)
                             </li>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                Instant download
+                                Consultant prompts (20+)
+                            </li>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                Real Estate prompts (20+)
+                            </li>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                Fitness Trainer prompts (20+)
                             </li>
                         </ul>
-                        <a href="https://buy.stripe.com/4gM3cw8Q36WTfrcgxw1ZS0c" class="btn btn-primary">Get All — $99</a>
-                    </div>
-
-                    <div class="product-card">
-                        <span class="product-type">Templates</span>
-                        <h3>Automation Template Pack</h3>
-                        <p class="tagline">Skip the setup. Plug-and-play templates.</p>
-                        <div class="price">$39</div>
-                        <ul class="product-features">
-                            <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                First Automation Checklist
-                            </li>
-                            <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                OpenClaw Config Template
-                            </li>
-                            <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                PARA Memory Setup Guide
-                            </li>
-                        </ul>
-                        <a href="https://buy.stripe.com/bJedRac2fgxten8gxw1ZS0f" class="btn btn-primary">Get Templates — $39</a>
+                        <a href="https://gtoliverjr.gumroad.com/l/prompt-pack-bundle" class="btn btn-primary">Get All Prompts</a>
                     </div>
                 </div>
             </div>
@@ -877,28 +801,28 @@
                         <h3>Automation Audit</h3>
                         <div class="price">$295</div>
                         <p>Complete audit of your workflows, tools, and automation opportunities. Written report with prioritized recommendations.</p>
-                        <a href="mailto:hello@gtoautomation.com?subject=Automation%20Audit%20Inquiry" class="btn btn-primary">Book Audit</a>
+                        <a href="#" class="btn btn-secondary">Book Audit</a>
                     </div>
 
                     <div class="service-card">
                         <h3>Quick Win Implementation</h3>
                         <div class="price">$995</div>
                         <p>ONE complete automation built for you. Email, calendar, leads, content, or research. 30-day support included.</p>
-                        <a href="mailto:hello@gtoautomation.com?subject=Quick%20Win%20Implementation%20Inquiry" class="btn btn-primary">Get Quick Win</a>
+                        <a href="#" class="btn btn-secondary">Get Quick Win</a>
                     </div>
 
                     <div class="service-card">
                         <h3>Business Automation Suite</h3>
                         <div class="price">$2,995</div>
                         <p>Complete automation overhaul. 5-7 custom automations. Email, calendar, leads, content, onboarding. 90-day support.</p>
-                        <a href="mailto:hello@gtoautomation.com?subject=Business%20Automation%20Suite%20Inquiry" class="btn btn-primary">Get Suite</a>
+                        <a href="#" class="btn btn-secondary">Get Suite</a>
                     </div>
 
                     <div class="service-card">
                         <h3>Monthly Retainer</h3>
                         <div class="price">$495<small>/mo</small></div>
                         <p>Ongoing automation support. Monthly optimization, new automations, priority support, quarterly strategy.</p>
-                        <a href="mailto:hello@gtoautomation.com?subject=Monthly%20Retainer%20Inquiry" class="btn btn-primary">Start Retainer</a>
+                        <a href="#" class="btn btn-secondary">Start Retainer</a>
                     </div>
                 </div>
             </div>
@@ -927,8 +851,8 @@
                             <div class="label">Open Source Tools</div>
                         </div>
                         <div class="stat-card">
-                            <div class="number">24/7</div>
-                            <div class="label">Automation Ready</div>
+                            <div class="number">30</div>
+                            <div class="label">Day Guarantee</div>
                         </div>
                     </div>
                 </div>
@@ -954,6 +878,10 @@
                         <p>Yes. All recommended software has free tiers or is open-source. No hidden costs.</p>
                     </div>
                     <div class="faq-item">
+                        <h3>What's your refund policy?</h3>
+                        <p>Digital products: 30-day money-back guarantee. Services: Refund if not satisfied before work begins.</p>
+                    </div>
+                    <div class="faq-item">
                         <h3>How do I access my purchase?</h3>
                         <p>Instant delivery via email. Check your inbox after purchase.</p>
                     </div>
@@ -968,7 +896,7 @@
                 <div class="footer-brand">
                     <a href="#" class="logo">
                         <div class="logo-icon">GTO</div>
-                        <div class="logo-text">GTO <span>Custom Automation Innovations</span></div>
+                        <div class="logo-text">GTO <span>Automation</span></div>
                     </a>
                     <p>Family Over Everything</p>
                 </div>
