@@ -1,14 +1,11 @@
 // Firebase Configuration for GTO Course Platform
-// TODO: Replace these values with your Firebase project config
-// Go to: Firebase Console > Project Settings > Your Apps > Web App
-
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY_HERE",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDsq6wrUxjh860v61D20BdiRvvs73lRyP4",
+    authDomain: "automation-course-dc070.firebaseapp.com",
+    projectId: "automation-course-dc070",
+    storageBucket: "automation-course-dc070.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abc123def456"
 };
 
 // Initialize Firebase
