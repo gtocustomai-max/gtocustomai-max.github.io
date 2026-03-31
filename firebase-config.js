@@ -3,7 +3,10 @@ const firebaseConfig = {
     apiKey: "AIzaSyDsq6wrUxjh860v61D20BdiRvvs73lRyP4",
     authDomain: "automation-course-dc070.firebaseapp.com",
     projectId: "automation-course-dc070",
-    storageBucket: "automation-course-dc070.appspot.com"
+    storageBucket: "automation-course-dc070.appspot.com",
+    messagingSenderId: "76631168953",
+    appId: "1:76631168953:web:a95c1a74b65e3768d5c868",
+    measurementId: "G-GJ20KZY6KF"
 };
 
 // Initialize Firebase
