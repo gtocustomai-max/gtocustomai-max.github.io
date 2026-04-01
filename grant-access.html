@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grant Access - GTO</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body style="background:#0A0A0B;color:#FAFAFA;font-family:system-ui;padding:40px;max-width:600px;margin:0 auto;">
+    <h1>🔓 Grant Test Access</h1>
+    <p>Click to grant course access to your test account...</p>
+    <button onclick="grantAccess()" style="padding:16px 32px;background:#00A5B5;color:#0A0A0B;border:none;border-radius:8px;font-weight:700;cursor:pointer;">Grant Access</button>
+    <pre id="output" style="margin-top:20px;padding:16px;background:#1A1A1E;border-radius:8px;overflow:auto;"></pre>
+    
+    <script>
+        async function grantAccess() {
+            const output = document.getElementById('output');
+            output.textContent = 'Checking auth...';
+            
+            firebase.auth().signInWithEmailAndPassword('gto2@hotmail.com', 'Test123!')
+                .then(async (cred) => {
+                    output.textContent = 'Logged in as: ' + cred.user.email + '\nUser ID: ' + cred.user.uid + '\n\nGranting access...';
+                    
+                    await firebase.firestore().collection('users').doc(cred.user.uid).set({
+                        email: cred.user.email,
+                        displayName: cred.user.displayName || 'Test User',
+                        hasAccess: true,
+                        purchaseDate: new Date().toISOString(),
+                        registeredAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                    
+                    output.textContent += '\n\n✅ ACCESS GRANTED!\n\nYou can now access the dashboard.\nRefresh dashboard.html to see your course modules.';
+                })
+                .catch(err => {
+                    output.textContent = '❌ Error: ' + err.message;
+                });
+        }
+    </script>
+</body>
+</html>
