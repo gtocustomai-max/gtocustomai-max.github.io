@@ -1,6 +1,6 @@
 // Firebase Configuration for GTO Course Platform
 const firebaseConfig = {
-    apiKey: "AIzaSyDsq6wrUxjh860v61D20BdiRvvs73lRyP4",
+    apiKey: "AIzaSyDsq6wrUxjh86Ov61D2OBdiRvvs73lRyP4",
     authDomain: "automation-course-dc070.firebaseapp.com",
     projectId: "automation-course-dc070",
     storageBucket: "automation-course-dc070.appspot.com",
