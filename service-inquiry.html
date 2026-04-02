@@ -191,5 +191,21 @@
             }
         });
     </script>
+
+            <!-- Setup Instructions -->
+            <div class="mt-12 p-6 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 text-sm">
+                <h4 class="font-bold mb-2">⚠️ n8n Setup Required:</h4>
+                <ol class="list-decimal list-inside space-y-1">
+                    <li>Open <a href="http://localhost:5678" target="_blank" class="underline">http://localhost:5678</a></li>
+                    <li>Click "Add workflow"</li>
+                    <li>Add Webhook node (POST, path: service-inquiry)</li>
+                    <li>Add HTTP Request → Resend API (auto-reply)</li>
+                    <li>Add HTTP Request → Resend API (notify George)</li>
+                    <li>Activate workflow</li>
+                    <li>Test this form</li>
+                </ol>
+                <p class="mt-2">Workflow JSON saved to: ~/.openclaw/workspace/n8n-service-inquiry-workflow.json</p>
+            </div>
+
 </body>
 </html>
