@@ -144,9 +144,30 @@
                 timestamp: new Date().toISOString()
             };
 
-            // Send to n8n webhook (or email directly)
+            // Send to n8n webhook
             try {
-                // For now, send via email using mailto as fallback
+                // POST to n8n webhook
+                const response = await fetch('http://localhost:5678/webhook/service-inquiry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    // Show success
+                    successMsg.classList.remove('hidden');
+                    document.getElementById('inquiry-form').reset();
+                    submitBtn.textContent = 'Submitted!';
+                    submitBtn.disabled = true;
+                } else {
+                    throw new Error('Webhook failed');
+                }
+                
+            } catch (err) {
+                console.error('Error:', err);
+                // Fallback to mailto
                 const subject = encodeURIComponent('Custom Service Inquiry - ' + formData.name);
                 const body = encodeURIComponent(
                     `Name: ${formData.name}\n` +
@@ -161,18 +182,10 @@
                     `Submitted: ${formData.timestamp}`
                 );
                 
-                // Open email client
                 window.location.href = `mailto:gto.custom.ai@gmail.com?subject=${subject}&body=${body}`;
                 
-                // Show success
+                successMsg.textContent = '✅ Opening your email client...';
                 successMsg.classList.remove('hidden');
-                document.getElementById('inquiry-form').reset();
-                submitBtn.textContent = 'Submit Inquiry';
-                submitBtn.disabled = false;
-                
-            } catch (err) {
-                console.error('Error:', err);
-                errorMsg.classList.remove('hidden');
                 submitBtn.textContent = 'Submit Inquiry';
                 submitBtn.disabled = false;
             }
