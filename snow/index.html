@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verified Local — Snow Coordination</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;margin:0;line-height:1.55}
+main{max-width:760px;margin:0 auto;padding:24px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin:16px 0}
+h1{font-size:1.7rem} h2{margin-top:0}
+.price{font-size:1.6rem;font-weight:700;color:#7dd3fc}
+input,button{font-size:1rem;padding:10px 12px;border-radius:8px;border:1px solid #475569}
+input{background:#0f172a;color:#e2e8f0}
+button{background:#0ea5e9;color:#fff;border:0;cursor:pointer}
+button:disabled{background:#475569;cursor:not-allowed}
+a.btn{display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:8px;margin-top:8px}
+a.btn.disabled{background:#475569;pointer-events:none}
+small{color:#94a3b8}
+label{display:block;margin:8px 0}
+.ok{color:#86efac;font-weight:600}
+.wait{color:#fbbf24;font-weight:600}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Verified Local — Snow Coordination</h1>
+<p>Fort Wayne, IN — a seasonal snow-coordination subscription for homeowners who want a staffed route and a named operator before winter, without chasing group threads after a storm.</p>
+
+<div class="card">
+<h2>The price, in two parts — always stated together</h2>
+<p class="price">$49/mo, Nov&ndash;Mar (5 payments)</p>
+<p><strong>Plus $45&ndash;$65 per storm</strong>, at your locked size band (driveway/lot size).</p>
+<p><strong>$49/month is coordination only.</strong> It does not include unlimited snow clearing and does not itself pay for each storm&rsquo;s work. Clearing is charged separately, per storm, at your locked rate.</p>
+<p>The desk takes <strong>$0 from a subscriber&rsquo;s per-storm charge</strong> — the operator keeps the full locked per-storm rate. The $49 coordination subscription is the desk&rsquo;s only snow revenue from subscribers.</p>
+<p>Seasonal billing: charged November through March only — 5 monthly payments per season. Nothing is charged April through October, and the subscription ends after the March payment. Per-storm charges are made after completion is confirmed, unless you have separately agreed otherwise in the Snow Terms.</p>
+</div>
+
+<div class="card">
+<h2>Check your ZIP</h2>
+<p>Service area approved 2026-10-30: Fort Wayne ZIPs below are checkout-eligible. Allen County towns listed below are waitlist-only until routes there are staffed — no checkout for those ZIPs yet. Out-of-area ZIPs get a waitlist, not checkout. We never sell an unstaffed route.</p>
+<label>ZIP code <input id="zip" inputmode="numeric" placeholder="46815" maxlength="5"></label>
+<button id="check" type="button">Check my area</button>
+<p id="result"></p>
+<script>
+const serviceZips = ["46802","46803","46804","46805","46806","46807","46808","46809","46814","46815","46816","46818","46819","46825","46835","46845"];
+const waitlistZips = {"46774":"New Haven","46748":"Huntertown","46765":"Leo","46741":"Grabill","46797":"Woodburn","46773":"Monroeville","46743":"Harlan","46745":"Hoagland"};
+const STRIPE_URL = "https://buy.stripe.com/aFaeVe9U71Czen81CC1ZS0H";
+document.getElementById("check").onclick = function(){
+  const z = document.getElementById("zip").value.trim();
+  const el = document.getElementById("result");
+  const sub = document.getElementById("subscribe");
+  const wait = document.getElementById("waitlist");
+  if(!/^\d{5}$/.test(z)){ el.textContent = "Enter a 5-digit ZIP."; return; }
+  if(serviceZips.includes(z)){
+    el.innerHTML = '<span class="ok">You are in our Fort Wayne service area.</span> Check the three boxes below, then subscribe.';
+    sub.classList.remove("disabled");
+    wait.style.display = "none";
+  } else if(waitlistZips[z]){
+    el.innerHTML = '<span class="wait">' + waitlistZips[z] + ' (' + z + ') is waitlist-only for now.</span> Routes there open once staffed — join the waitlist below (no payment, no checkout).';
+    sub.classList.add("disabled");
+    wait.style.display = "inline-block";
+    wait.href = "mailto:gto.custom.ai@gmail.com?subject=" + encodeURIComponent("Snow waitlist — " + waitlistZips[z] + " " + z) + "&body=" + encodeURIComponent("Hi Verified Local,\n\nPlease add me to the snow waitlist for " + waitlistZips[z] + " (" + z + ").\n\nName:\nAddress:\nDriveway/walk size:\n\nThanks!");
+  } else {
+    el.innerHTML = '<span class="wait">Outside our current service area.</span> Join the waitlist below and we will let you know if a route opens near you (no payment, no checkout).';
+    sub.classList.add("disabled");
+    wait.style.display = "inline-block";
+    wait.href = "mailto:gto.custom.ai@gmail.com?subject=" + encodeURIComponent("Snow waitlist — ZIP " + z) + "&body=" + encodeURIComponent("Hi Verified Local,\n\nPlease add me to the snow waitlist for ZIP " + z + ".\n\nName:\nAddress:\nDriveway/walk size:\n\nThanks!");
+  }
+  updateSubscribe();
+};
+function updateSubscribe(){
+  const boxes = document.querySelectorAll("#acks input[type=checkbox]");
+  const all = Array.prototype.every.call(boxes, function(b){ return b.checked; });
+  const sub = document.getElementById("subscribe");
+  const z = document.getElementById("zip").value.trim();
+  if(all && serviceZips.includes(z)){ sub.classList.remove("disabled"); }
+  else { sub.classList.add("disabled"); }
+}
+document.querySelectorAll("#acks input[type=checkbox]").forEach(function(b){ b.addEventListener("change", updateSubscribe); });
+</script>
+</div>
+
+<div class="card">
+<h2>How it works</h2>
+<ol>
+<li>Check your ZIP and confirm your driveway/walk areas and size band.</li>
+<li>If your ZIP is in the Fort Wayne service area, subscribe for coordination ($49/mo, Nov&ndash;Mar, 5 payments) using the button below.</li>
+<li>When snow falls, your assigned operator clears driveway + walks at your locked per-storm rate.</li>
+<li>You confirm completion; the per-storm charge follows confirmation.</li>
+</ol>
+<p>If a route reaches capacity, checkout for that route stops and a waitlist opens. If your operator cannot complete a service, Verified Local re-dispatches or follows the published remedy in the Snow Terms.</p>
+</div>
+
+<div class="card" id="acks">
+<h2>Before checkout</h2>
+<p>Check your ZIP above first — the subscribe button activates only for Fort Wayne service-area ZIPs, once all three boxes are checked.</p>
+<label><input type="checkbox"> I understand $49/month is coordination only, not unlimited clearing.</label>
+<label><input type="checkbox"> I understand clearing is charged separately per storm at my locked $45&ndash;$65 rate, after completion confirmation.</label>
+<label><input type="checkbox"> I understand billing is November through March only (5 payments) and ends after the March payment.</label>
+<p><a id="subscribe" class="btn disabled" href="https://buy.stripe.com/aFaeVe9U71Czen81CC1ZS0H">Subscribe — $49/mo, Nov&ndash;Mar</a>
+<a id="waitlist" class="btn" style="display:none" href="mailto:gto.custom.ai@gmail.com?subject=Snow%20waitlist">Join the waitlist (no payment)</a></p>
+<p><small>Checkout uses the live Verified Local Snow Coordination subscription ($49/mo, Nov&ndash;Mar). Per-storm charges ($45&ndash;$65) are billed separately after completion confirmation.</small></p>
+</div>
+
+<div class="card">
+<h2>Questions</h2>
+<p><strong>What if no storm occurs?</strong> The coordination subscription still covers route staffing, scheduling, and dispatch readiness for the season; per-storm charges only occur for storms actually cleared.</p>
+<p><strong>What if there are many storms?</strong> Each completed storm is charged at your locked per-storm rate; coordination stays $49/mo Nov&ndash;Mar.</p>
+<p><strong>Who is my operator?</strong> A named roster operator assigned to your route, confirmed before the season.</p>
+<p><strong>What if I&rsquo;m away?</strong> Tell the desk in advance; your route assignment and per-storm handling follow the Snow Terms.</p>
+<p><strong>How do I cancel?</strong> Per the Snow Terms, with cancellation instructions on the receipt — the season ends after the March payment in any case.</p>
+</div>
+
+<p><small>Verified Local — Fort Wayne, IN. Contact: gto.custom.ai@gmail.com. Service area approved 2026-10-30. Public pages stay at &ldquo;Fort Wayne, IN&rdquo; only — no street address.</small></p>
+</main>
+</body>
+</html>
