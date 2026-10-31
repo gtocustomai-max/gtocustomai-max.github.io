@@ -4,72 +4,436 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Verified Local — Snow Coordination</title>
+<meta name="description" content="A seasonal snow-coordination subscription for Fort Wayne homeowners: a staffed route and a named operator before winter. $49/mo Nov–Mar, plus $45–$65 per storm.">
 <style>
-body{font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;margin:0;line-height:1.55}
-main{max-width:760px;margin:0 auto;padding:24px}
-.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin:16px 0}
-h1{font-size:1.7rem} h2{margin-top:0}
-.price{font-size:1.6rem;font-weight:700;color:#7dd3fc}
-input,button{font-size:1rem;padding:10px 12px;border-radius:8px;border:1px solid #475569}
-input{background:#0f172a;color:#e2e8f0}
-button{background:#0ea5e9;color:#fff;border:0;cursor:pointer}
-button:disabled{background:#475569;cursor:not-allowed}
-a.btn{display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:8px;margin-top:8px}
-a.btn.disabled{background:#475569;pointer-events:none}
-small{color:#94a3b8}
-label{display:block;margin:8px 0}
-.ok{color:#86efac;font-weight:600}
-.wait{color:#fbbf24;font-weight:600}
+:root{
+  --bg:#0b0f14; --bg-soft:#0e1319; --surface:#12171e; --surface-2:#161c25;
+  --line:#232b36; --line-soft:#1b222c;
+  --text:#eef1f4; --muted:#9aa6b2; --faint:#6b7885;
+  --accent:#7dd3fc; --accent-strong:#38bdf8; --accent-deep:#0ea5e9;
+  --ok:#86efac; --ok-dim:#14532d; --wait:#fbbf24;
+  --radius:14px; --radius-sm:9px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:rgba(56,189,248,.28)}
+a{color:var(--accent)}
+img,svg{display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.narrow{max-width:760px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);transition:box-shadow .25s}
+.topbar.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.topbar-inner{max-width:1080px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text);font-weight:700;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.brand-mark{width:30px;height:30px;flex:none;border-radius:8px;background:linear-gradient(145deg,#0ea5e9,#0369a1);display:grid;place-items:center}
+.brand-mark svg{width:17px;height:17px}
+.brand small{display:block;font-weight:500;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);line-height:1.2}
+.nav{display:flex;gap:26px;margin-left:auto}
+.nav a{color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:500;transition:color .15s}
+.nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent-deep);color:#fff;text-decoration:none;font-weight:650;font-size:15px;padding:11px 20px;border-radius:var(--radius-sm);border:0;cursor:pointer;transition:background .15s,transform .15s,box-shadow .15s;white-space:nowrap}
+.btn:hover{background:#0284c7;box-shadow:0 6px 20px rgba(14,165,233,.28)}
+.btn:active{transform:translateY(1px)}
+.btn-sm{padding:8px 15px;font-size:14px}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn-ghost:hover{background:var(--surface-2);box-shadow:none}
+.btn[disabled],.btn.disabled{background:#334155;color:#94a3b8;cursor:not-allowed;box-shadow:none;pointer-events:none}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line-soft)}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(720px 340px at 78% -10%,rgba(56,189,248,.13),transparent 62%),
+  radial-gradient(560px 300px at 8% 110%,rgba(56,189,248,.07),transparent 60%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:linear-gradient(rgba(125,211,252,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(125,211,252,.05) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 78%);mask-image:linear-gradient(180deg,#000 0%,transparent 78%)}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;padding:88px 0 84px;align-items:center}
+.eyebrow{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 18px;display:flex;align-items:center;gap:9px}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--accent-strong)}
+h1{font-size:54px;line-height:1.04;letter-spacing:-.032em;margin:0 0 20px;font-weight:750}
+h1 .thin{color:var(--accent)}
+.lede{font-size:19px;line-height:1.6;color:#c3ccd5;margin:0 0 30px;max-width:56ch}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-note{margin-top:18px;font-size:14px;color:var(--faint)}
+.hero-note strong{color:var(--muted);font-weight:600}
+
+/* price card */
+.price-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px 30px 26px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.price-card .label{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 14px}
+.price-line{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price-big{font-size:46px;line-height:1;letter-spacing:-.03em;font-weight:750}
+.price-big span{font-size:19px;font-weight:600;color:var(--muted);letter-spacing:0}
+.price-plus{font-size:19px;font-weight:650;color:var(--text);margin-top:12px}
+.price-card hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+.price-list{list-style:none;margin:0;padding:0}
+.price-list li{display:flex;gap:11px;padding:7px 0;font-size:15px;color:#c3ccd5;line-height:1.55}
+.price-list li svg{flex:none;width:18px;height:18px;margin-top:3px}
+.price-list li strong{color:var(--text);font-weight:650}
+.price-card .btn{width:100%;justify-content:center;margin-top:22px}
+
+/* ---------- sections ---------- */
+section{padding:76px 0}
+.section-head{max-width:680px;margin-bottom:44px}
+.kicker{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 14px}
+h2{font-size:34px;line-height:1.15;letter-spacing:-.025em;margin:0 0 14px;font-weight:700}
+.section-head p{margin:0;color:var(--muted);font-size:18px;line-height:1.6}
+.divider{height:1px;background:var(--line-soft);border:0;margin:0}
+
+/* pricing detail */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px}
+.fact h3{margin:0 0 8px;font-size:18px;letter-spacing:-.01em}
+.fact p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.6}
+.fact p strong{color:var(--text)}
+.fact .num{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--accent);display:block;margin-bottom:6px}
+.fact.wide{grid-column:1/-1}
+.fact.wide p{max-width:78ch}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;position:relative}
+.steps li::before{counter-increment:step;content:counter(step,decimal-leading-zero);display:block;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--accent-strong);margin-bottom:48px}
+.steps h3{margin:0 0 8px;font-size:17px;letter-spacing:-.01em}
+.steps p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+
+/* ZIP checker */
+.checker{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:36px;box-shadow:0 24px 60px rgba(0,0,0,.32)}
+.checker-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.checker h3{margin:0 0 6px;font-size:21px;letter-spacing:-.02em}
+.checker .sub{color:var(--muted);font-size:15px;margin:0 0 22px}
+.zip-row{display:flex;gap:10px}
+.zip-row input{flex:1;min-width:0;background:var(--bg);color:var(--text);font-size:17px;padding:13px 16px;border-radius:var(--radius-sm);border:1px solid var(--line);font-family:var(--font);letter-spacing:.06em}
+.zip-row input:focus{outline:none;border-color:var(--accent-strong);box-shadow:0 0 0 3px rgba(56,189,248,.18)}
+.zip-row input::placeholder{color:var(--faint)}
+#result{min-height:28px;margin:14px 0 0;font-size:15.5px;line-height:1.55}
+#result .ok{color:var(--ok);font-weight:650}
+#result .wait{color:var(--wait);font-weight:650}
+.zip-list{margin-top:26px}
+.zip-list h4{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--bg-soft);border:1px solid var(--line);color:#c3ccd5;font-size:13.5px;font-weight:550;padding:6px 11px;border-radius:999px;cursor:pointer;transition:border-color .15s,color .15s,background .15s;font-family:var(--font)}
+.chip:hover{border-color:var(--accent-strong);color:var(--text)}
+.chip.active{border-color:var(--accent-strong);color:var(--accent);background:rgba(56,189,248,.08)}
+.chip.town{border-style:dashed;color:var(--muted)}
+.chip.town:hover{color:var(--text)}
+.checker-note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--faint);line-height:1.6}
+.checker-note strong{color:var(--muted);font-weight:600}
+
+/* FAQ */
+.faq{max-width:760px}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item:first-of-type{border-top:1px solid var(--line)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;background:none;border:0;color:var(--text);font-family:var(--font);font-size:18px;font-weight:650;letter-spacing:-.01em;text-align:left;padding:22px 2px;cursor:pointer}
+.faq-q .icon{flex:none;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--muted);transition:transform .25s,border-color .25s,color .25s}
+.faq-q .icon svg{width:13px;height:13px}
+.faq-item.open .faq-q .icon{transform:rotate(45deg);border-color:var(--accent-strong);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-a p{margin:0;padding:0 2px 24px;color:var(--muted);font-size:16px;line-height:1.65;max-width:68ch}
+
+/* checkout */
+.checkout{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:40px;box-shadow:0 24px 60px rgba(0,0,0,.32)}
+.checkout-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.checkout h3{margin:0 0 8px;font-size:23px;letter-spacing:-.02em}
+.checkout .sub{color:var(--muted);font-size:15.5px;margin:0 0 8px}
+.acks{list-style:none;margin:22px 0 0;padding:0}
+.acks li{margin:0 0 16px}
+.acks label{display:flex;gap:13px;align-items:flex-start;cursor:pointer;font-size:15.5px;line-height:1.55;color:#c3ccd5}
+.acks input{appearance:none;flex:none;width:21px;height:21px;margin:2px 0 0;border:1.5px solid #3a4552;border-radius:6px;background:var(--bg);cursor:pointer;position:relative;transition:border-color .15s,background .15s}
+.acks input:checked{background:var(--accent-deep);border-color:var(--accent-deep)}
+.acks input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.acks input:focus-visible{outline:2px solid var(--accent-strong);outline-offset:2px}
+.checkout-side{background:var(--bg-soft);border:1px solid var(--line-soft);border-radius:var(--radius);padding:26px 28px}
+.checkout-side .price-line{margin-bottom:6px}
+.checkout-side .price-big{font-size:38px}
+.checkout-side p{margin:0 0 18px;color:var(--muted);font-size:14.5px;line-height:1.6}
+.checkout-side .btn{width:100%;justify-content:center}
+#waitlist{display:none;width:100%;justify-content:center;margin-top:12px}
+.checkout-fine{margin:16px 0 0;font-size:13.5px;color:var(--faint);line-height:1.6;text-align:center}
+
+/* footer */
+footer{border-top:1px solid var(--line-soft);padding:40px 0 48px;color:var(--faint);font-size:14px;line-height:1.7}
+footer .foot-grid{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+footer strong{color:var(--muted);font-weight:600}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--text)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .faq-a{transition:none}
+}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding:64px 0}
+  h1{font-size:42px}
+  .steps{grid-template-columns:1fr 1fr}
+  .checker-grid,.checkout-grid,.price-grid{grid-template-columns:1fr}
+  .nav{display:none}
+}
+@media(max-width:640px){
+  body{font-size:16.5px}
+  .wrap{padding:0 20px}
+  .topbar-inner{padding:0 20px}
+  h1{font-size:36px}
+  h2{font-size:28px}
+  section{padding:56px 0}
+  .steps{grid-template-columns:1fr}
+  .checker,.checkout{padding:26px 22px}
+  .price-card{padding:24px 22px}
+  .zip-row{flex-direction:column}
+  .zip-row .btn{justify-content:center}
+  .topbar .btn-sm{display:none}
+}
 </style>
 </head>
 <body>
-<main>
 
-<h1>Verified Local — Snow Coordination</h1>
-<p>Fort Wayne, IN — a seasonal snow-coordination subscription for homeowners who want a staffed route and a named operator before winter, without chasing group threads after a storm.</p>
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M4 6l16 12M20 6L4 18M12 2l-2 3m2-3 2 3M12 22l-2-3m2 3 2-3M4 6l3.5.5M4 6 4.5 9.5M20 18l-3.5-.5m3.5.5-.5-3.5M20 6l-3.5.5M20 6l-.5 3.5M4 18l3.5-.5M4 18l.5-3.5"/></svg>
+      </span>
+      <span>Verified Local<small>Snow Coordination · Fort Wayne, IN</small></span>
+    </a>
+    <nav class="nav" aria-label="Page sections">
+      <a href="#pricing">Pricing</a>
+      <a href="#area">Service area</a>
+      <a href="#how">How it works</a>
+      <a href="#questions">Questions</a>
+    </nav>
+    <a class="btn btn-sm" href="#checkout">Subscribe — $49/mo</a>
+  </div>
+</header>
 
-<div class="card">
-<h2>The price, in two parts — always stated together</h2>
-<p class="price">$49/mo, Nov&ndash;Mar (5 payments)</p>
-<p><strong>Plus $45&ndash;$65 per storm</strong>, at your locked size band (driveway/lot size).</p>
-<p><strong>$49/month is coordination only.</strong> It does not include unlimited snow clearing and does not itself pay for each storm&rsquo;s work. Clearing is charged separately, per storm, at your locked rate.</p>
-<p>The desk takes <strong>$0 from a subscriber&rsquo;s per-storm charge</strong> — the operator keeps the full locked per-storm rate. The $49 coordination subscription is the desk&rsquo;s only snow revenue from subscribers.</p>
-<p>Seasonal billing: charged November through March only — 5 monthly payments per season. Nothing is charged April through October, and the subscription ends after the March payment. Per-storm charges are made after completion is confirmed, unless you have separately agreed otherwise in the Snow Terms.</p>
+<div class="hero" id="top">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Fort Wayne, IN · Seasonal · Nov–Mar</p>
+      <h1>Snow handled <span class="thin">before the storm.</span></h1>
+      <p class="lede">A seasonal snow-coordination subscription for homeowners who want a staffed route and a named operator before winter — without chasing group threads after a storm.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#area">Check your ZIP</a>
+        <a class="btn btn-ghost" href="#pricing">See the price</a>
+      </div>
+      <p class="hero-note"><strong>Nov 1 – Mar 31.</strong> Coordination $49/mo, clearing $45–$65 per storm. No unlimited-clearing claims, no unstaffed routes.</p>
+    </div>
+    <div class="price-card reveal in">
+      <p class="label">The price, in two parts — always stated together</p>
+      <div class="price-line"><span class="price-big">$49<span>/mo</span></span><span class="price-plus">Nov–Mar · 5 payments</span></div>
+      <p class="price-plus" style="margin-top:10px">Plus $45–$65 per storm, at your locked size band.</p>
+      <hr>
+      <ul class="price-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>$49/month is coordination only.</strong> It does not include unlimited snow clearing and does not itself pay for each storm&rsquo;s work.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>The desk takes <strong>$0 from a subscriber&rsquo;s per-storm charge</strong> — the operator keeps the full locked per-storm rate.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Per-storm charges are made <strong>after completion is confirmed</strong>, unless you have separately agreed otherwise in the Snow Terms.</span></li>
+      </ul>
+      <a class="btn" href="#checkout">Subscribe — $49/mo, Nov–Mar</a>
+    </div>
+  </div>
 </div>
 
-<div class="card">
-<h2>Check your ZIP</h2>
-<p>Service area approved 2026-10-30: Fort Wayne ZIPs below are checkout-eligible. Allen County towns listed below are waitlist-only until routes there are staffed — no checkout for those ZIPs yet. Out-of-area ZIPs get a waitlist, not checkout. We never sell an unstaffed route.</p>
-<label>ZIP code <input id="zip" inputmode="numeric" placeholder="46815" maxlength="5"></label>
-<button id="check" type="button">Check my area</button>
-<p id="result"></p>
+<main>
+<!-- Pricing -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Pricing</p>
+      <h2>Two charges. Both stated up front.</h2>
+      <p>The coordination subscription keeps your route staffed and dispatched. Clearing is charged separately, per storm, at the rate locked to your driveway size.</p>
+    </div>
+    <div class="price-grid">
+      <div class="fact reveal">
+        <span class="num">$49 / month</span>
+        <h3>Coordination — Nov through Mar</h3>
+        <p>Route staffing, scheduling, and dispatch readiness for the season. <strong>5 monthly payments</strong>, November through March only. Nothing is charged April through October, and the subscription ends after the March payment.</p>
+      </div>
+      <div class="fact reveal">
+        <span class="num">$45 – $65 / storm</span>
+        <h3>Clearing — per completed storm</h3>
+        <p>Driveway + walks cleared at your <strong>locked size band</strong>. Charged only after you confirm completion. The $49 coordination subscription is the desk&rsquo;s only snow revenue from subscribers.</p>
+      </div>
+      <div class="fact wide reveal">
+        <h3>If a route reaches capacity</h3>
+        <p>Checkout for that route stops and a waitlist opens. If your operator cannot complete a service, Verified Local re-dispatches or follows the published remedy in the Snow Terms. <strong>We never sell an unstaffed route.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Service area / ZIP checker -->
+<section id="area">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Service area</p>
+      <h2>Check your ZIP first.</h2>
+      <p>Service area approved 2026-10-30. Fort Wayne ZIPs below are checkout-eligible. Allen County towns are waitlist-only until routes there are staffed — no checkout for those ZIPs yet.</p>
+    </div>
+    <div class="checker reveal">
+      <div class="checker-grid">
+        <div>
+          <h3>Is your address covered?</h3>
+          <p class="sub">Enter your ZIP, or tap one below. Out-of-area ZIPs get a waitlist, not checkout.</p>
+          <div class="zip-row">
+            <input id="zip" inputmode="numeric" placeholder="46815" maxlength="5" aria-label="ZIP code" autocomplete="postal-code">
+            <button id="check" type="button" class="btn">Check my area</button>
+          </div>
+          <p id="result" role="status" aria-live="polite"></p>
+          <div class="zip-list">
+            <h4>Fort Wayne — checkout-eligible</h4>
+            <div class="chips" id="service-chips"></div>
+          </div>
+        </div>
+        <div>
+          <div class="zip-list" style="margin-top:0">
+            <h4>Allen County towns — waitlist-only</h4>
+            <div class="chips" id="waitlist-chips"></div>
+          </div>
+          <p class="checker-note"><strong>Waitlist means no payment, no checkout.</strong> Routes in these towns open once staffed — join the waitlist and we will let you know if a route opens near you. The subscribe button activates only for Fort Wayne service-area ZIPs, once all three boxes in the checkout section are checked.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- How it works -->
+<section id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">How it works</p>
+      <h2>From signup to the first storm.</h2>
+      <p>Four steps. Your operator is named and your route is confirmed before the season starts.</p>
+    </div>
+    <ol class="steps">
+      <li class="reveal"><h3>Check your ZIP</h3><p>Confirm your driveway and walk areas and your size band.</p></li>
+      <li class="reveal"><h3>Subscribe</h3><p>If your ZIP is in the Fort Wayne service area, subscribe for coordination — $49/mo, Nov–Mar, 5 payments.</p></li>
+      <li class="reveal"><h3>Storms get cleared</h3><p>When snow falls, your assigned operator clears driveway + walks at your locked per-storm rate.</p></li>
+      <li class="reveal"><h3>Confirm, then pay</h3><p>You confirm completion; the per-storm charge follows confirmation.</p></li>
+    </ol>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Questions -->
+<section id="questions">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Questions</p>
+      <h2>Straight answers.</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">What if no storm occurs?<span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>The coordination subscription still covers route staffing, scheduling, and dispatch readiness for the season; per-storm charges only occur for storms actually cleared.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">What if there are many storms?<span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Each completed storm is charged at your locked per-storm rate; coordination stays $49/mo Nov–Mar.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Who is my operator?<span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>A named roster operator assigned to your route, confirmed before the season.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">What if I&rsquo;m away?<span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Tell the desk in advance; your route assignment and per-storm handling follow the Snow Terms.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">How do I cancel?<span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Per the Snow Terms, with cancellation instructions on the receipt — the season ends after the March payment in any case.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Checkout -->
+<section id="checkout">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Subscribe</p>
+      <h2>Before checkout.</h2>
+      <p>Check your ZIP above first — the subscribe button activates only for Fort Wayne service-area ZIPs, once all three boxes are checked.</p>
+    </div>
+    <div class="checkout reveal">
+      <div class="checkout-grid">
+        <div>
+          <h3>Three acknowledgments</h3>
+          <p class="sub">Read and check each one. They are the whole deal, in plain language.</p>
+          <ul class="acks" id="acks">
+            <li><label><input type="checkbox"> I understand $49/month is coordination only, not unlimited clearing.</label></li>
+            <li><label><input type="checkbox"> I understand clearing is charged separately per storm at my locked $45&ndash;$65 rate, after completion confirmation.</label></li>
+            <li><label><input type="checkbox"> I understand billing is November through March only (5 payments) and ends after the March payment.</label></li>
+          </ul>
+        </div>
+        <div class="checkout-side">
+          <p class="label" style="font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px">Season total — coordination</p>
+          <div class="price-line"><span class="price-big">$49<span>/mo</span></span></div>
+          <p>5 payments, Nov–Mar. Per-storm charges ($45–$65) are billed separately after completion confirmation. Checkout uses the live Verified Local Snow Coordination subscription.</p>
+          <a id="subscribe" class="btn disabled" href="https://buy.stripe.com/aFaeVe9U71Czen81CC1ZS0H">Subscribe — $49/mo, Nov–Mar</a>
+          <a id="waitlist" class="btn btn-ghost" href="mailto:gto.custom.ai@gmail.com?subject=Snow%20waitlist">Join the waitlist (no payment)</a>
+          <p class="checkout-fine">Secure checkout by Stripe. Nothing is charged April through October.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <strong>Verified Local</strong> — Fort Wayne, IN<br>
+      Contact: <a href="mailto:gto.custom.ai@gmail.com">gto.custom.ai@gmail.com</a>
+    </div>
+    <div>
+      Service area approved 2026-10-30.<br>
+      Public pages stay at &ldquo;Fort Wayne, IN&rdquo; only — no street address.
+    </div>
+  </div>
+</footer>
+
 <script>
 const serviceZips = ["46802","46803","46804","46805","46806","46807","46808","46809","46814","46815","46816","46818","46819","46825","46835","46845"];
 const waitlistZips = {"46774":"New Haven","46748":"Huntertown","46765":"Leo","46741":"Grabill","46797":"Woodburn","46773":"Monroeville","46743":"Harlan","46745":"Hoagland"};
 const STRIPE_URL = "https://buy.stripe.com/aFaeVe9U71Czen81CC1ZS0H";
-document.getElementById("check").onclick = function(){
-  const z = document.getElementById("zip").value.trim();
-  const el = document.getElementById("result");
-  const sub = document.getElementById("subscribe");
-  const wait = document.getElementById("waitlist");
-  if(!/^\d{5}$/.test(z)){ el.textContent = "Enter a 5-digit ZIP."; return; }
-  if(serviceZips.includes(z)){
-    el.innerHTML = '<span class="ok">You are in our Fort Wayne service area.</span> Check the three boxes below, then subscribe.';
-    sub.classList.remove("disabled");
-    wait.style.display = "none";
-  } else if(waitlistZips[z]){
-    el.innerHTML = '<span class="wait">' + waitlistZips[z] + ' (' + z + ') is waitlist-only for now.</span> Routes there open once staffed — join the waitlist below (no payment, no checkout).';
-    sub.classList.add("disabled");
-    wait.style.display = "inline-block";
-    wait.href = "mailto:gto.custom.ai@gmail.com?subject=" + encodeURIComponent("Snow waitlist — " + waitlistZips[z] + " " + z) + "&body=" + encodeURIComponent("Hi Verified Local,\n\nPlease add me to the snow waitlist for " + waitlistZips[z] + " (" + z + ").\n\nName:\nAddress:\nDriveway/walk size:\n\nThanks!");
-  } else {
-    el.innerHTML = '<span class="wait">Outside our current service area.</span> Join the waitlist below and we will let you know if a route opens near you (no payment, no checkout).';
-    sub.classList.add("disabled");
-    wait.style.display = "inline-block";
-    wait.href = "mailto:gto.custom.ai@gmail.com?subject=" + encodeURIComponent("Snow waitlist — ZIP " + z) + "&body=" + encodeURIComponent("Hi Verified Local,\n\nPlease add me to the snow waitlist for ZIP " + z + ".\n\nName:\nAddress:\nDriveway/walk size:\n\nThanks!");
-  }
-  updateSubscribe();
-};
+
+/* ZIP chips */
+const serviceChips = document.getElementById("service-chips");
+serviceZips.forEach(function(z){
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = z; b.dataset.zip = z;
+  b.addEventListener("click", function(){ setZip(z); });
+  serviceChips.appendChild(b);
+});
+const waitChips = document.getElementById("waitlist-chips");
+Object.keys(waitlistZips).forEach(function(z){
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chip town"; b.textContent = waitlistZips[z] + " · " + z; b.dataset.zip = z;
+  b.addEventListener("click", function(){ setZip(z); });
+  waitChips.appendChild(b);
+});
+function setZip(z){
+  document.getElementById("zip").value = z;
+  document.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("active", c.dataset.zip === z); });
+  checkZip();
+}
+
 function updateSubscribe(){
   const boxes = document.querySelectorAll("#acks input[type=checkbox]");
   const all = Array.prototype.every.call(boxes, function(b){ return b.checked; });
@@ -79,41 +443,68 @@ function updateSubscribe(){
   else { sub.classList.add("disabled"); }
 }
 document.querySelectorAll("#acks input[type=checkbox]").forEach(function(b){ b.addEventListener("change", updateSubscribe); });
+
+function checkZip(){
+  const z = document.getElementById("zip").value.trim();
+  const el = document.getElementById("result");
+  const sub = document.getElementById("subscribe");
+  const wait = document.getElementById("waitlist");
+  if(!/^\d{5}$/.test(z)){ el.textContent = "Enter a 5-digit ZIP."; return; }
+  if(serviceZips.includes(z)){
+    el.innerHTML = '<span class="ok">You are in our Fort Wayne service area.</span> Check the three boxes below, then subscribe.';
+    wait.style.display = "none";
+  } else if(waitlistZips[z]) {
+    el.innerHTML = '<span class="wait">' + waitlistZips[z] + ' (' + z + ') is waitlist-only for now.</span> Routes there open once staffed — join the waitlist below (no payment, no checkout).';
+    sub.classList.add("disabled");
+    wait.style.display = "inline-flex";
+    wait.href = "mailto:gto.custom.ai@gmail.com?subject=" + encodeURIComponent("Snow waitlist — " + waitlistZips[z] + " " + z) + "&body=" + encodeURIComponent("Hi Verified Local,\n\nPlease add me to the snow waitlist for " + waitlistZips[z] + " (" + z + ").\n\nName:\nAddress:\nDriveway/walk size:\n\nThanks!");
+  } else {
+    el.innerHTML = '<span class="wait">Outside our current service area.</span> Join the waitlist below and we will let you know if a route opens near you (no payment, no checkout).';
+    sub.classList.add("disabled");
+    wait.style.display = "inline-flex";
+    wait.href = "mailto:gto.custom.ai@gmail.com?subject=" + encodeURIComponent("Snow waitlist — ZIP " + z) + "&body=" + encodeURIComponent("Hi Verified Local,\n\nPlease add me to the snow waitlist for ZIP " + z + ".\n\nName:\nAddress:\nDriveway/walk size:\n\nThanks!");
+  }
+  updateSubscribe();
+}
+document.getElementById("check").addEventListener("click", checkZip);
+document.getElementById("zip").addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); checkZip(); } });
+document.getElementById("zip").addEventListener("input", function(){
+  const z = this.value.trim();
+  document.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("active", c.dataset.zip === z); });
+});
+
+/* FAQ accordion */
+document.querySelectorAll(".faq-item").forEach(function(item){
+  const q = item.querySelector(".faq-q");
+  const a = item.querySelector(".faq-a");
+  q.addEventListener("click", function(){
+    const open = item.classList.contains("open");
+    document.querySelectorAll(".faq-item.open").forEach(function(o){
+      o.classList.remove("open");
+      o.querySelector(".faq-a").style.maxHeight = "0px";
+      o.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+    });
+    if(!open){
+      item.classList.add("open");
+      a.style.maxHeight = a.scrollHeight + "px";
+      q.setAttribute("aria-expanded", "true");
+    }
+  });
+});
+
+/* Scroll reveal */
+const io = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+  });
+}, {threshold: 0.12});
+document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+
+/* Top bar shadow */
+const topbar = document.getElementById("topbar");
+window.addEventListener("scroll", function(){
+  topbar.classList.toggle("scrolled", window.scrollY > 8);
+}, {passive: true});
 </script>
-</div>
-
-<div class="card">
-<h2>How it works</h2>
-<ol>
-<li>Check your ZIP and confirm your driveway/walk areas and size band.</li>
-<li>If your ZIP is in the Fort Wayne service area, subscribe for coordination ($49/mo, Nov&ndash;Mar, 5 payments) using the button below.</li>
-<li>When snow falls, your assigned operator clears driveway + walks at your locked per-storm rate.</li>
-<li>You confirm completion; the per-storm charge follows confirmation.</li>
-</ol>
-<p>If a route reaches capacity, checkout for that route stops and a waitlist opens. If your operator cannot complete a service, Verified Local re-dispatches or follows the published remedy in the Snow Terms.</p>
-</div>
-
-<div class="card" id="acks">
-<h2>Before checkout</h2>
-<p>Check your ZIP above first — the subscribe button activates only for Fort Wayne service-area ZIPs, once all three boxes are checked.</p>
-<label><input type="checkbox"> I understand $49/month is coordination only, not unlimited clearing.</label>
-<label><input type="checkbox"> I understand clearing is charged separately per storm at my locked $45&ndash;$65 rate, after completion confirmation.</label>
-<label><input type="checkbox"> I understand billing is November through March only (5 payments) and ends after the March payment.</label>
-<p><a id="subscribe" class="btn disabled" href="https://buy.stripe.com/aFaeVe9U71Czen81CC1ZS0H">Subscribe — $49/mo, Nov&ndash;Mar</a>
-<a id="waitlist" class="btn" style="display:none" href="mailto:gto.custom.ai@gmail.com?subject=Snow%20waitlist">Join the waitlist (no payment)</a></p>
-<p><small>Checkout uses the live Verified Local Snow Coordination subscription ($49/mo, Nov&ndash;Mar). Per-storm charges ($45&ndash;$65) are billed separately after completion confirmation.</small></p>
-</div>
-
-<div class="card">
-<h2>Questions</h2>
-<p><strong>What if no storm occurs?</strong> The coordination subscription still covers route staffing, scheduling, and dispatch readiness for the season; per-storm charges only occur for storms actually cleared.</p>
-<p><strong>What if there are many storms?</strong> Each completed storm is charged at your locked per-storm rate; coordination stays $49/mo Nov&ndash;Mar.</p>
-<p><strong>Who is my operator?</strong> A named roster operator assigned to your route, confirmed before the season.</p>
-<p><strong>What if I&rsquo;m away?</strong> Tell the desk in advance; your route assignment and per-storm handling follow the Snow Terms.</p>
-<p><strong>How do I cancel?</strong> Per the Snow Terms, with cancellation instructions on the receipt — the season ends after the March payment in any case.</p>
-</div>
-
-<p><small>Verified Local — Fort Wayne, IN. Contact: gto.custom.ai@gmail.com. Service area approved 2026-10-30. Public pages stay at &ldquo;Fort Wayne, IN&rdquo; only — no street address.</small></p>
-</main>
 </body>
 </html>
